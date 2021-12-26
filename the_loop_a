@@ -1,0 +1,48 @@
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import matplotlib.animation as animation
+
+from start_template import draw_a_beauty
+
+
+def update(frame_number):
+    current_index = frame_number % 3
+    box[0].set_color(color0[current_index])
+    box[1].set_color(color0[current_index])
+
+    circle[0].set_color(color1[current_index])
+    circle[1].set_color(color1[current_index])
+
+    poly[0].set_color(color2[current_index])
+    poly[1].set_color(color2[current_index])
+    poly[2].set_color(color2[current_index])
+
+
+k = 1.69
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+
+draw_a_beauty(k)
+
+box = [1, 2]
+box[0] = ax.add_patch(patches.FancyBboxPatch((1.35, 38.8), 4, 4, boxstyle='Round', color=(0, 0, 1), zorder=2))
+box[1] = ax.add_patch(patches.FancyBboxPatch((1.8, 0.0), 3, 40, boxstyle='Round', color=(0, 1, 1), zorder=0))
+
+circle = [1, 2]
+circle[0] = ax.add_patch(patches.Ellipse((28.7, 5.3), 4, 4, color=(0.5, 0.1, 1), zorder=2))
+circle[1] = ax.add_patch(patches.Ellipse((47.4, 3.4), 4, 4, color=(1, 0, 1), zorder=2))
+
+
+poly = [1, 2, 3]
+poly[0] = ax.add_patch(patches.RegularPolygon((3.2, 4), 6, 5, color=(1, 0, 0), orientation=33, zorder=2))
+poly[1] = ax.add_patch(patches.RegularPolygon((18, 28.5), 6, 5, color=(1, 0, 0), orientation=0, zorder=2))
+poly[2] = ax.add_patch(patches.RegularPolygon((42, 22.3), 6, 3, color=(1, 0, 0), orientation=0, zorder=2))
+
+color0 = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
+color1 = [(0, 1, 0), (0, 0, 1), (1, 0, 0)]
+color2 = [(0, 0, 1), (1, 0, 0), (0, 1, 0)]
+
+ani = animation.FuncAnimation(fig, update, interval=100)
+
+plt.show()
